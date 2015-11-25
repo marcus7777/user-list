@@ -9,7 +9,7 @@
   <template>
     <mediator-data data="{{data}}" folder="{{cat(uid,'/users')}}" default-folder="{{cat(uid,'/users')}}" location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
     <paper-menu>
-      <template is="dom-repeat" items="{{users}}"><a href="#!/user/{{keys(index, data)}}"><paper-item style="">{{item.user.google.displayName}}</paper-item></a></template>
+      <template is="dom-repeat" items="{{users}}"><a href="/user/{{keys(index, data)}}"><paper-item style="">{{item.user.google.displayName}}</paper-item></a></template>
     </paper-menu>
   </template>
 </dom-module>

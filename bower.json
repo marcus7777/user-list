@@ -1,0 +1,12 @@
+{
+  "name": "user-list",
+  "version": "1.0.0",
+  "description": "user-list",
+  "main": "user-list.html",
+  "keywords": [
+    "polymer","web-components"
+  ],
+  "dependencies": {
+    "mediator-data":"marcus7777/mediator-data"
+  }
+}

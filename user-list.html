@@ -1,4 +1,5 @@
 <link rel="import" href="../mediator-data/mediator-data.html">
+<link rel="import" href="../paper-item/paper-item.html">
 <!--
 `<user-list>` List of users with links to there page (/users/uid)
 @demo demo.html
@@ -7,7 +8,7 @@
 <dom-module id="user-list">
   <template>
     <mediator-data data="{{data}}" folder="{{cat(uid,'/users')}}" default-folder="{{cat(uid,'/users')}}" location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
-    <template is="dom-repeat" items="{{users}}"><div><a href="/user/{{keys(index, data)}}">{{item.user.google.displayName}}</a></div></template>
+    <template is="dom-repeat" items="{{users}}"><a href="/user/{{keys(index, data)}}"><paper-item>{{item.user.google.displayName}}</paper-item></a></template>
   </template>
 </dom-module>
 <script>

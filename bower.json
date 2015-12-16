@@ -8,6 +8,7 @@
   ],
   "dependencies": {
     "mediator-data":"marcus7777/mediator-data",
-    "paper-menu":"PolymerElements/paper-menu"
+    "paper-menu":"PolymerElements/paper-menu",
+    "user-notes":"marcus7777/user-notes"
   }
 }

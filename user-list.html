@@ -4,56 +4,75 @@
 `<user-list>` List of users with links to there page (/users/uid)
 @demo demo.html
 -->
-
 <dom-module id="user-list">
   <template>
+    <style>
+    paper-item {
+      font-size: 20px;
+      padding: 0;
+      color: #333;
+    }
+    </style>
     <mediator-data data="{{data}}" folder="{{cat(uid,'/users')}}" default-folder="{{cat(uid,'/users')}}" location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
     <paper-menu>
       <template is="dom-repeat" items="{{users}}">
         <template is="dom-if" if="{{item.user.google.displayName}}">
-          <a href="/user/{{keys(index, data)}}"><paper-item><b style="width:200px">{{item.user.google.displayName}}</b>  Visits {{getVisits(item)}} Badges {{getBadges(item)}} Surveys {{getSurveys(item)}}</paper-item></a>
+          <a href="/user/{{keys(index, data)}}" style="text-decoration: none;">
+            <paper-item>
+            <b style="width:250px">{{item.user.google.displayName}}</b>
+              <div id="visitslist" style="margin-right: 30px;">
+                Visits {{getVisits(item)}}
+              </div>
+              <div id="badgeslist" style="margin-right: 30px;">
+                Badges {{getBadges(item)}}
+              </div>
+              <div id="surveyslist" style="margin-right: 30px;">
+                Surveys {{getSurveys(item)}}
+              </div>
+            </paper-item>
+          </a>
         </template>
       </template>
     </paper-menu>
   </template>
 </dom-module>
 <script>
-  Polymer({
-    is: "user-list",
-    keys: function(index, data) {
-      return Object.keys(data)[index]
-    },
-    cat: function(a,b) {
-      return a+b
-    },
-    getVisits: function(user){
-      return user.log.length
-    },
-    getBadges: function(user){
-      var count = 0
-      if (!user.badges) {
-        return "0/?"
-      } else {
-        for ( var index = 0; index < Object.keys(user.badges).length; ++index) {
-          if (user.badges[Object.keys(user.badges)[index]].isComplete) {
-            count = count+1
-          }
+Polymer({
+  is: "user-list",
+  keys: function(index, data) {
+    return Object.keys(data)[index]
+  },
+  cat: function(a, b) {
+    return a + b
+  },
+  getVisits: function(user) {
+    return user.log.length
+  },
+  getBadges: function(user) {
+    var count = 0
+    if (!user.badges) {
+      return "0/?"
+    } else {
+      for (var index = 0; index < Object.keys(user.badges).length; ++index) {
+        if (user.badges[Object.keys(user.badges)[index]].isComplete) {
+          count = count + 1
         }
       }
-      return count + "/" + Object.keys(user.badges).length
-    },
-    getSurveys: function(user){
-      var count = 0
-      if (!user.surveys) {
-        return "0/?"
-      } else {
-        for ( var index = 0; index < Object.keys(user.surveys).length; ++index) {
-          if (user.surveys[Object.keys(user.surveys)[index]].isComplete) {
-            count = count+1
-          }
-        }
-      }
-      return count + "/" + Object.keys(user.surveys).length
     }
-  });
+    return count + "/" + Object.keys(user.badges).length
+  },
+  getSurveys: function(user) {
+    var count = 0
+    if (!user.surveys) {
+      return "0/?"
+    } else {
+      for (var index = 0; index < Object.keys(user.surveys).length; ++index) {
+        if (user.surveys[Object.keys(user.surveys)[index]].isComplete) {
+          count = count + 1
+        }
+      }
+    }
+    return count + "/" + Object.keys(user.surveys).length
+  }
+});
 </script>

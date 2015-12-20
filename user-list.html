@@ -26,10 +26,10 @@
     cat: function(a,b) {
       return a+b
     },
-    getVisits(user){
+    getVisits: function(user){
       return user.log.length
     },
-    getBadges(user){
+    getBadges: function(user){
       var count = 0
       if (!user.badges) {
         return "0/?"
@@ -42,7 +42,7 @@
       }
       return count + "/" + Object.keys(user.badges).length
     },
-    getSurveys(user){
+    getSurveys: function(user){
       var count = 0
       if (!user.surveys) {
         return "0/?"

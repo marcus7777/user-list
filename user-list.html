@@ -7,14 +7,12 @@
 
 <dom-module id="user-list">
   <template>
-  <div id="tithere" style="padding-bottom: 50px;">
-      <h2 style="float: left; width:200px; padding:0;">Users</h2>
-    <paper-button raised="1" style="float:right; text-decoration: none; margin: 10px;"><a href="https://hi9.uk/#!/admin" style="text-decoration: none;">BACK</a></paper-button>
-    </div>
     <mediator-data data="{{data}}" folder="{{cat(uid,'/users')}}" default-folder="{{cat(uid,'/users')}}" location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
-    <paper-menu style="margin-top: 50px; margin-left: 50px;">
+    <paper-menu>
       <template is="dom-repeat" items="{{users}}">
-        <a href="/user/{{keys(index, data)}}" style=" text-decoration: none;"><paper-item style="">{{item.user.google.displayName}}</paper-item></a>
+        <template is="dom-if" if="{{item.user.google.displayName}}">
+          <a href="/user/{{keys(index, data)}}"><paper-item><b style="width:200px">{{item.user.google.displayName}}</b>  Visits {{getVisits(item)}} Badges {{getBadges(item)}} Surveys {{getSurveys(item)}}</paper-item></a>
+        </template>
       </template>
     </paper-menu>
   </template>
@@ -27,6 +25,35 @@
     },
     cat: function(a,b) {
       return a+b
+    },
+    getVisits(user){
+      return user.log.length
+    },
+    getBadges(user){
+      var count = 0
+      if (!user.badges) {
+        return "0/?"
+      } else {
+        for ( var index = 0; index < Object.keys(user.badges).length; ++index) {
+          if (user.badges[Object.keys(user.badges)[index]].isComplete) {
+            count = count+1
+          }
+        }
+      }
+      return count + "/" + Object.keys(user.badges).length
+    },
+    getSurveys(user){
+      var count = 0
+      if (!user.surveys) {
+        return "0/?"
+      } else {
+        for ( var index = 0; index < Object.keys(user.surveys).length; ++index) {
+          if (user.surveys[Object.keys(user.surveys)[index]].isComplete) {
+            count = count+1
+          }
+        }
+      }
+      return count + "/" + Object.keys(user.surveys).length
     }
   });
 </script>

@@ -18,7 +18,8 @@
       <template is="dom-repeat" items="{{users}}">
         <template is="dom-if" if="{{item.user.google.displayName}}">
           <a href="/user/{{keys(index, data)}}" style="text-decoration: none;">
-            <paper-item><b style="width:250px">{{item.user.google.displayName}}</b>
+            <paper-item>
+            <b style="width:250px">{{item.user.google.displayName}}</b>
               <div id="visitslist" style="margin-right: 30px;">
                 Visits {{getVisits(item)}}
               </div>

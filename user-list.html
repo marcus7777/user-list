@@ -46,7 +46,11 @@ Polymer({
     return a + b
   },
   getVisits: function(user) {
-    return user.log.length
+    if (user.log.length) {
+      return user.log.length
+    } else {
+      return Object.keys(user.log).length
+    }
   },
   getBadges: function(user) {
     var count = 0

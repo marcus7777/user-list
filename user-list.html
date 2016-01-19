@@ -52,7 +52,7 @@ Polymer({
     for(var index in user.log) { 
       if (user.log.hasOwnProperty(index)) {
         user.log[index]
-        if (user.log[index].site) {
+        if (user.log[index].sites) {
           for(var sites in user.log[index].site) {
             theCount = theCount + (+user.log[index].site[sites])
           }

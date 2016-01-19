@@ -14,7 +14,7 @@
       color: #333;
     }
     </style>
-    <mediator-data data="{{data}}" sync="{{_keys(users)}}" folder="{{cat(uid,'/users')}}" default-folder="." location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
+    <mediator-data data="{{data}}" sync="{{usersKeys)}}" folder="{{cat(uid,'/users')}}" default-folder="." location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
     <paper-menu style="clear:both">
       <template is="dom-repeat" items="{{users}}">
         <template is="dom-if" if="{{item.user.google.displayName}}">
@@ -40,6 +40,9 @@
 <script>
 Polymer({
   is: "user-list",
+  properties: {
+    usersKeys:{ computed:"_keys(users)" }
+  },
   keys: function(index, data) {
     return Object.keys(data)[index]
   },

@@ -41,7 +41,7 @@
 Polymer({
   is: "user-list",
   properties: {
-    usersKeys:{ computed:"getUsersKeys(users)" }
+    usersKeys:{ computed:"getUsersKeys(users.*)" }
   },
   keys: function(index, data) {
     return Object.keys(data)[index]
@@ -83,7 +83,7 @@ Polymer({
     return count + "/" + Object.keys(user.surveys).length
   },
   getUsersKeys: function(users) {
-    return Object.keys(users)
+    return Object.keys(users.base)
   }
 });
 </script>

@@ -54,7 +54,7 @@ Polymer({
         user.log[index]
         if (user.log[index].sites) {
           for(var sites in user.log[index].site) {
-            theCount = theCount + (+user.log[index].site[sites])
+            theCount = theCount + (+user.log[index].sites[sites])
           }
         } else {
           theCount++

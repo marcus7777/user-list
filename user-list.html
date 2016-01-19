@@ -8,11 +8,11 @@
 <dom-module id="user-list">
   <template>
     <style>
-    paper-item {
-      font-size: 20px;
-      padding: 0;
-      color: #333;
-    }
+      paper-item {
+        font-size: 20px;
+        padding: 0;
+        color: #333;
+      }
     </style>
     <mediator-data data="{{data}}" sync='["badges","log","surveys"]' over-write folder="{{cat(uid,'/users')}}" default-folder="." location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
     <paper-menu style="clear:both">
@@ -47,11 +47,15 @@ Polymer({
     return a + b
   },
   getVisits: function(user) {
-    if (user.log.length) {
-      return user.log.length
-    } else {
-      return Object.keys(user.log).length
+    var theCount
+    
+    for(var index in user.log) { 
+      if (user.log.hasOwnProperty(index)) {
+        user.log[index]
+        debugger
+      }
     }
+    return theCount
   },
   getBadges: function(user) {
     var count = 0

@@ -14,7 +14,7 @@
       color: #333;
     }
     </style>
-    <mediator-data data="{{data}}" sync='["badge","log","surveys"]' folder="{{cat(uid,'/users')}}" default-folder="." location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
+    <mediator-data data="{{data}}" sync='["badges","log","surveys"]' over-write folder="{{cat(uid,'/users')}}" default-folder="." location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
     <paper-menu style="clear:both">
       <template is="dom-repeat" items="{{users}}">
         <template is="dom-if" if="{{item.user.google.displayName}}">

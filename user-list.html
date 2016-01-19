@@ -12,29 +12,41 @@
         font-size: 20px;
         padding: 0;
         color: #333;
+        font-weight: 300;
+      }
+      iron-icon {
+        color: #FFF;
+        height: 40px;
+        width: 40px;
       }
     </style>
     <mediator-data data="{{data}}" sync='["badges","log","surveys"]' over-write folder="{{cat(uid,'/users')}}" default-folder="." location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
-    <paper-menu style="clear:both">
-      <template is="dom-repeat" items="{{users}}">
-        <template is="dom-if" if="{{item.user.google.displayName}}">
-          <a href="/user/{{keys(index, data)}}" style="text-decoration: none;">
-            <paper-item>
-            <b style="width:250px">{{item.user.google.displayName}}</b>
-              <div id="visitslist" style="margin-right: 30px;">
-                Visits {{getVisits(item)}}
-              </div>
-              <div id="badgeslist" style="margin-right: 30px;">
-                Badges {{getBadges(item)}}
-              </div>
-              <div id="surveyslist" style="margin-right: 30px;">
-                Surveys {{getSurveys(item)}}
-              </div>
-            </paper-item>
-          </a>
-        </template>
+<div id="listofUserHeading" style="height: 50px; width: 100%; background-color: purple; padding: 2px 0 20px 20px;">
+  <h2 style="color: #FFF;">Users</h2>
+  <iron-icon icon="account-circle"></iron-icon>
+</div>
+<div id="listofUsers">
+  <paper-menu style="clear:both">
+    <template is="dom-repeat" items="{{users}}">
+      <template is="dom-if" if="{{item.user.google.displayName}}">
+        <a href="/user/{{keys(index, data)}}" style="text-decoration: none;">
+          <paper-item style="margin-left: 20px;">
+          <b style="width:250px; font-weight: 300;">{{item.user.google.displayName}}</b>
+            <div id="visitslist" style="margin-right: 30px;">
+              Visits {{getVisits(item)}}
+            </div>
+            <div id="badgeslist" style="margin-right: 30px;">
+              Badges {{getBadges(item)}}
+            </div>
+            <div id="surveyslist" style="margin-right: 30px;">
+              Surveys {{getSurveys(item)}}
+            </div>
+          </paper-item>
+        </a>
       </template>
-    </paper-menu>
+    </template>
+  </paper-menu>
+</div>
   </template>
 </dom-module>
 <script>
@@ -48,8 +60,8 @@ Polymer({
   },
   getVisits: function(user) {
     var theCount = 0
-    
-    for(var index in user.log) { 
+
+    for(var index in user.log) {
       if (user.log.hasOwnProperty(index)) {
         user.log[index]
         if (user.log[index].sites) {

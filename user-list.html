@@ -14,92 +14,118 @@
         color: #333;
         font-weight: 300;
       }
+
       iron-icon {
         color: #FFF;
         height: 40px;
         width: 40px;
+        float: right;
+        margin: 15px 20px 0px 0px;
+      }
+
+      .topHeading {
+        float: left;
+        margin: 10px 0 0 0px;
+      }
+
+      .userNumbers {
+        margin-right: 100px;
+        width: 100px;
+        text-align: right;
+      }
+
+      paper-item {
+        border-bottom-width: 1px;
+        border-bottom-color: #333;
+        border-bottom-style: inset;
       }
     </style>
     <mediator-data data="{{data}}" sync='["badges","log","surveys"]' over-write folder="{{cat(uid,'/users')}}" default-folder="." location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
-<div id="listofUserHeading" style="height: 50px; width: 100%; background-color: purple; padding: 2px 0 20px 20px;">
-  <h2 style="color: #FFF;">Users</h2>
-  <iron-icon icon="account-circle"></iron-icon>
-</div>
-<div id="listofUsers">
-  <paper-menu style="clear:both">
-    <template is="dom-repeat" items="{{users}}">
-      <template is="dom-if" if="{{item.user.google.displayName}}">
-        <a href="/user/{{keys(index, data)}}" style="text-decoration: none;">
-          <paper-item style="margin-left: 20px;">
-          <b style="width:250px; font-weight: 300;">{{item.user.google.displayName}}</b>
-            <div id="visitslist" style="margin-right: 30px;">
-              Visits {{getVisits(item)}}
-            </div>
-            <div id="badgeslist" style="margin-right: 30px;">
-              Badges {{getBadges(item)}}
-            </div>
-            <div id="surveyslist" style="margin-right: 30px;">
-              Surveys {{getSurveys(item)}}
-            </div>
-          </paper-item>
-        </a>
-      </template>
-    </template>
-  </paper-menu>
-</div>
+    <div id="listofUserHeading" style="height: 50px; width: 100%; background-color: purple; padding: 2px 0 20px 20px;">
+      <h2 style="color: #FFF; float:left;">Users</h2>
+      <iron-icon icon="account-circle"></iron-icon>
+    </div>
+    <div id="userHeadings" style="font-size: 24px; float: left; width: 100%; margin-left: 30px;">
+      <div id="nameOf" class="topHeading" style="margin-right:270px;">Name</div>
+      <div id="visitsDone" class="topHeading" style="margin-right: 140px;">Visits</div>
+      <div id="badgesDone" class="topHeading" style="margin-right: 120px;">Badges</div>
+      <div id="surveysDone" class="topHeading">Surveys</div>
+    </div>
+    <div id="listofUsers" style="float:left;">
+      <paper-menu style="clear:both">
+        <template is="dom-repeat" items="{{users}}">
+          <template is="dom-if" if="{{item.user.google.displayName}}">
+            <a href="/user/{{keys(index, data)}}" style="text-decoration: none;">
+              <paper-item style="margin-left: 20px;">
+                <b style="width:300px; font-weight: 300;">{{item.user.google.displayName}}</b>
+                <div id="visitslist" class="userNumbers">
+                  {{getVisits(item)}}
+                </div>
+                <div id="badgeslist" class="userNumbers">
+                  {{getBadges(item)}}
+                </div>
+                <div id="surveyslist" class="userNumbers">
+                  {{getSurveys(item)}}
+                </div>
+              </paper-item>
+            </a>
+          </template>
+        </template>
+      </paper-menu>
+    </div>
   </template>
 </dom-module>
 <script>
-Polymer({
-  is: "user-list",
-  keys: function(index, data) {
-    return Object.keys(data)[index]
-  },
-  cat: function(a, b) {
-    return a + b
-  },
-  getVisits: function(user) {
-    var theCount = 0
+  Polymer({
+    is: "user-list",
+    keys: function(index, data) {
+      return Object.keys(data)[index]
+    },
+    cat: function(a, b) {
+      return a + b
+    },
+    getVisits: function(user) {
+      var theCount = 0
 
-    for(var index in user.log) {
-      if (user.log.hasOwnProperty(index)) {
-        user.log[index]
-        if (user.log[index].sites) {
-          for(var sites in user.log[index].sites) {
-            theCount = theCount + (+user.log[index].sites[sites])
+      for (var index in user.log) {
+        if (user.log.hasOwnProperty(index)) {
+          user.log[index]
+          if (user.log[index].sites) {
+            for (var sites in user.log[index].sites) {
+              theCount = theCount + (+user.log[index].sites[sites])
+            }
+          } else {
+            theCount++
           }
-        } else {
-          theCount++
         }
       }
-    }
-    return theCount
-  },
-  getBadges: function(user) {
-    var count = 0
-    if (!user.badges) {
-      return "0/?"
-    } else {
-      for (var index = 0; index < Object.keys(user.badges).length; ++index) {
-        if (user.badges[Object.keys(user.badges)[index]].isComplete) {
-          count = count + 1
+      return theCount
+    },
+    getBadges: function(user) {
+      var count = 0
+      if (!user.badges) {
+        return "0/?"
+      } else {
+        for (var index = 0; index < Object.keys(user.badges).length; ++index) {
+          if (user.badges[Object.keys(user.badges)[index]].isComplete) {
+            count = count + 1
+          }
         }
       }
-    }
-    return count + "/" + Object.keys(user.badges).length
-  },
-  getSurveys: function(user) {
-    var count = 0
-    if (!user.surveys) {
-      return "0/?"
-    } else {
-      for (var index = 0; index < Object.keys(user.surveys).length; ++index) {
-        if (user.surveys[Object.keys(user.surveys)[index]].isComplete) {
-          count = count + 1
+      return count + "/" + Object.keys(user.badges).length
+    },
+    getSurveys: function(user) {
+      var count = 0
+      if (!user.surveys) {
+        return "0/?"
+      } else {
+        for (var index = 0; index < Object.keys(user.surveys).length; ++index) {
+          if (user.surveys[Object.keys(user.surveys)[index]].isComplete) {
+            count = count + 1
+          }
         }
       }
+      return count + "/" + Object.keys(user.surveys).length
     }
-    return count + "/" + Object.keys(user.surveys).length
-  }
-})
+  })
 </script>

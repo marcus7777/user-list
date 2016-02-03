@@ -41,10 +41,6 @@
       }
     </style>
     <mediator-data data="{{data}}" sync='["badges","log","surveys"]' over-write folder="{{cat(uid,'/users')}}" default-folder="." location="https://hi9site.firebaseio.com/users" as-array="{{users}}"></mediator-data>
-    <div id="listofUserHeading" style="height: 50px; width: 100%; background-color: LightGrey; padding: 2px 0 20px 20px; margin-bottom: 20px;">
-      <h2 style="color: #FFF; float:left;">Users</h2>
-      <iron-icon icon="account-circle"></iron-icon>
-    </div>
     <div id="userHeadings" style="font-size: 24px; float: left; width: 100%; margin-left: 30px;">
       <div id="nameOf" class="topHeading" style="margin-right:270px;">Name</div>
       <div id="visitsDone" class="topHeading" style="margin-right: 140px;">Visits</div>

@@ -46,6 +46,7 @@
       <div id="visitsDone" class="topHeading" style="margin-right: 140px;">Visits</div>
       <div id="badgesDone" class="topHeading" style="margin-right: 120px;">Badges</div>
       <div id="surveysDone" class="topHeading">Surveys</div>
+      <div id="surveysDone" class="topHeading">id</div>
     </div>
     <div id="listofUsers" style="float:left;">
       <paper-menu style="clear:both">
@@ -62,6 +63,9 @@
                 </div>
                 <div id="surveyslist" class="userNumbers">
                   {{getSurveys(item)}}
+                </div>                
+                <div id="surveyslist" class="userNumbers">
+                  {{keys(index, data)}}
                 </div>
               </paper-item>
             </a>
